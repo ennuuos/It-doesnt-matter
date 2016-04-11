@@ -1,0 +1,24 @@
+ToDo
+
+[x]Enemy
+	[x]Control
+	[x]Draw
+	[x]Spawn
+	[x]Update
+		[x]Advance toward Player
+		[x]Shoot
+		[x]Collision (later)
+	[x]Die
+	[x]Drop Loot
+	[x]Drop Block
+	[x]Add Points
+
+[x]Projectiles
+	[x]Control
+	[x]Spawn
+	[x]Render
+	[x]Update
+		[x]Move
+		[x]Check Collision
+
+-Player Score implement score colour
