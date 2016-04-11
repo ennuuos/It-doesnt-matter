@@ -26,7 +26,7 @@ enemy.types['standard'].projectileType = "standard"
 enemy.types['standard'].scoreValue = 10
 enemy.types['standard'].color = {r = 10, g = 100, b = 12}
 enemy.types['standard'].weapon = 'standard'
-enemy.types['standard'].deathfunction = function(i) enemy.droppoints(i) end
+enemy.types['standard'].deathfunction = function(i) enemy.droppoints(i) enemy.drophealth(i) end
 
 enemy.types['heavy'] = {}
 enemy.types['heavy'].width = 40
@@ -116,6 +116,14 @@ function enemy.dropweapon(i)
 	pi = pickup.new('weapon', x, y)
 	pickup[pi].vweapon = enemy.types[enemy[i].type].weapon
 	pickup[pi].ammo = math.random(weapon[pickup[pi].vweapon].minammo, weapon[pickup[pi].vweapon].maxammo)
+end
+function enemy.drophealth(i)
+	x, y = enemy.center(i)
+	x = x + math.random(-10,10)/10
+	y = y + math.random(-10,10)/10
+
+	pi = pickup.new('health', x, y)
+	pickup[pi].vhealth = math.random(5,100)
 end
 
 

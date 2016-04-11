@@ -24,7 +24,7 @@ projectile.types['deathinator'] = {}
 projectile.types['deathinator'].speed = 600
 projectile.types['deathinator'].radius = 7
 projectile.types['deathinator'].color = {r = 0, g = 0, b = 0}
-projectile.types['deathinator'].damage = 50
+projectile.types['deathinator'].damage = 100
 
 projectile.types['rifle'] = {}
 projectile.types['rifle'].speed = 300
