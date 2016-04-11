@@ -31,6 +31,19 @@ pickup.types['health'].color = {r = 0, g = 255, b = 0}
 pickup.types['health'].func = function(i) pickup.addhealth(i) end
 pickup.types['health'].vhealth = 10
 
+pickup.types['speed'] = {}
+pickup.types['speed'].width = 10
+pickup.types['speed'].height = 10
+pickup.types['speed'].color = {r = 255, g = 0, b = 0}
+pickup.types['speed'].func = function(i) pickup.addspeed(i) end
+pickup.types['speed'].vspeed = 10
+
+pickup.types['maxhealth'] = {}
+pickup.types['maxhealth'].width = 10
+pickup.types['maxhealth'].height = 10
+pickup.types['maxhealth'].color = {r = 255, g = 255, b = 0}
+pickup.types['maxhealth'].func = function(i) pickup.addmaxhealth(i) end
+
 pickup.magnetspeed = 130
 pickup.magnetrange = 70
 
@@ -39,10 +52,21 @@ function pickup.addscore(i)
 	table.remove(pickup, i)
 end
 
+function pickup.addspeed(i)
+	player.speed = math.min(player.maxspeed, player.speed + pickup[i].vspeed)
+	table.remove(pickup, i)
+end
+
 function pickup.addmatter(i)
 	player.matter = player.matter + pickup[i].vmatter
 	table.remove(pickup, i)
 end
+
+function pickup.addmaxhealth(i)
+	player.maxhealth = player.maxhealth + math.random(50,400)
+	table.remove(pickup, i)
+end
+
 
 function pickup.addhealth(i)
 	player.health = player.health + pickup[i].vhealth

@@ -30,3 +30,9 @@ weapon['rifle'].rate = 1.8
 weapon['rifle'].type = 'rifle'
 weapon['rifle'].minammo = 1
 weapon['rifle'].maxammo = 4
+
+weapon['smallstick'] = {}
+weapon['smallstick'].rate = 5
+weapon['smallstick'].type = 'standard'
+weapon['smallstick'].minammo = 1
+weapon['smallstick'].maxammo = 4

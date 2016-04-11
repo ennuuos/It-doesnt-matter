@@ -7,9 +7,10 @@ mindistance = 100	--closest they'll move to player
 --enemy types and their stats
 enemy.types = {
 	'standard',
-	'heavy', 
+	'heavy',
 	'intellectual',
 	'speedyfucker',
+	'brick',
 	'sniper',
 	'victor von deathenstein',
 	--'telepotato'
@@ -26,7 +27,7 @@ enemy.types['standard'].projectileType = "standard"
 enemy.types['standard'].scoreValue = 10
 enemy.types['standard'].color = {r = 10, g = 100, b = 12}
 enemy.types['standard'].weapon = 'standard'
-enemy.types['standard'].deathfunction = function(i) enemy.droppoints(i) enemy.drophealth(i) end
+enemy.types['standard'].deathfunction = function(i) enemy.droppoints(i) end
 
 enemy.types['heavy'] = {}
 enemy.types['heavy'].width = 40
@@ -71,7 +72,7 @@ enemy.types['intellectual'].health = 40
 enemy.types['intellectual'].scoreValue = 20
 enemy.types['intellectual'].color = {r = 0, g = 100, b = 100}
 enemy.types['intellectual'].weapon = 'standard'
-enemy.types['intellectual'].deathfunction = function(i) enemy.droppoints(i) end
+enemy.types['intellectual'].deathfunction = function(i) enemy.droppoints(i) enemy.drophealth(i) end
 
 enemy.types['sniper'] = {}
 enemy.types['sniper'].width = 15
@@ -93,7 +94,19 @@ enemy.types['speedyfucker'].health = 40
 enemy.types['speedyfucker'].scoreValue = 20
 enemy.types['speedyfucker'].color = {r = 255, g = 30, b = 30}
 enemy.types['speedyfucker'].weapon = 'standard'
-enemy.types['speedyfucker'].deathfunction = function(i) enemy.droppoints(i) end
+enemy.types['speedyfucker'].vspeed = 25
+enemy.types['speedyfucker'].deathfunction = function(i) enemy.droppoints(i) enemy.dropspeed(i) end
+
+enemy.types['brick'] = {}
+enemy.types['brick'].width = 55
+enemy.types['brick'].height = 55
+enemy.types['brick'].speed = 160
+enemy.types['brick'].tick = 10  --time between enemy[i] decisions
+enemy.types['brick'].health = 800
+enemy.types['brick'].scoreValue = 20
+enemy.types['brick'].color = {r = 100, g = 50, b = 50}
+enemy.types['brick'].weapon = 'smallstick'
+enemy.types['brick'].deathfunction = function(i) enemy.droppoints(i) enemy.dropmaxhealth(i) end
 
 --pickup drop functions
 function enemy.dropblock(i)
@@ -107,6 +120,21 @@ function enemy.droppoints(i)
 
 	pi = pickup.new('points', x, y)
 	pickup[pi].vscore = enemy[i].score
+end
+function enemy.dropspeed(i)
+	x, y = enemy.center(i)
+	x = x + math.random(-10,10)/10
+	y = y + math.random(-10,10)/10
+
+	pi = pickup.new('speed', x, y)
+	pickup[pi].vspeed = enemy[i].vspeed
+end
+function enemy.dropmaxhealth(i)
+	x, y = enemy.center(i)
+	x = x + math.random(-10,10)/10
+	y = y + math.random(-10,10)/10
+
+	pi = pickup.new('maxhealth', x, y)
 end
 function enemy.dropweapon(i)
 	x, y = enemy.center(i)
@@ -140,6 +168,7 @@ function enemy.new(x, y, type)
 	enemy[i].fireCounter = 1000
 	enemy[i].behaviour = "move"
 	enemy[i].score = enemy.types[type].scoreValue
+	enemy[i].vspeed = enemy.types[type].vspeed
 end
 
 --spawn a new enemy at a random position

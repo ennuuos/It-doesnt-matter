@@ -53,13 +53,14 @@ function game.printstats()
 	love.graphics.print(
 		'FPS: '..game.fps..
 		'\nHP: '..player.health..
+		'/'..player.maxhealth..
 		'\nScore: '..player.score..
 		'\nWave: '..enemy.spawn.currentwave..
 		'\nMatter: '..math.floor(player.matter)..
 		'\nWeapon: '..player.equippedWeapon..
-		'\nAmmo: '..
-		player.weapons[player.equippedIndex].ammo,
-		 15,15)
+		'\nAmmo: '..player.weapons[player.equippedIndex].ammo..
+		'\nSpeed: '..player.speed
+		 ,15,15)
 end
 
 function game.keypressed(key)

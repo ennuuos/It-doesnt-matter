@@ -19,6 +19,9 @@ player.score = 0
 player.matter = 1000
 player.upgradespeed = 50
 
+player.maxspeed = 800
+player.maxhealth = 1500
+
 --block building stats
 player.matterCost = 100 -- cost of 1mu
 player.healthBonus = 500
