@@ -38,9 +38,10 @@ function love.draw()
 	if game.started then
 		block.drawAll()
 		pickup.drawAll()
-		player.draw()
 		projectile.drawAll()
 		enemy.drawAll()
+		cursor.drawaimline()
+		player.draw()
 		cursor.draw()
 		game.printstats()
 	else

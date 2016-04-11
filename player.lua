@@ -251,9 +251,13 @@ function cursor.reset() -- pretty simple. sets cursor.x and cursor.y as x and y 
 	cursor.height = cursor.standard.height
 end
 
-function cursor.draw()
-	love.graphics.setColor(30,30,30)
+function cursor.drawaimline()
+	love.graphics.setColor(50,50,50)
 	love.graphics.line(player.x + player.width/2, player.y + player.height/2, cursor.x, cursor.y)
+
+end
+
+function cursor.draw()
 
 	if player.canbuild(cursor.x, cursor.y) then -- checks if the player can currently build, and if so changes the cursor colour
 		--[[
