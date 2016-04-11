@@ -20,13 +20,9 @@ function block.new(x, y, type)
 	block[i].width = block.types[block[i].type].width
 	block[i].height = block.types[block[i].type].height
 	
-	-- block[i].width = block.types[type].width
-	-- block[i].height = block.types[type].height
 	block[i].color = block.types[type].color
 	block[i].matter = block.types['standard'].matter
 
-	--block stats
-	--block[i].maxHealth = block.types[type].health
 	block[i].health = block.types[type].health
 end
 

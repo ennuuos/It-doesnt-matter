@@ -1,8 +1,3 @@
---require("util")
---require('weapon')
---require('block')
---require('settings')
-
 player = {}
 
 
@@ -16,13 +11,8 @@ player.color = {r = 200, g = 100, b = 200}
 player.weaponDT = 1000 -- time since last fire. Used for fire rate.
 player.equippedIndex = 1
 player.weapons = { -- player's inventory
-	--{	name =  'deathinator',
-	--	ammo = 10000000	},
-	--{	name =  'standard',
-	--	ammo = 100	},
 	{	name =  'minigun',
 		ammo = 150	},
-	--'shotgun'
 }
 player.equippedWeapon = player.weapons[player.equippedIndex].name
 player.score = 0
@@ -234,21 +224,6 @@ function player.upgrade(dt)
 	else
 		cursor.reset()
 	end
-
-	--[[
-	if love.mouse.isDown(2) then
-		x, y = cursor.get()
-		i = 1
-		while i <= table.getn(block) do
-			build, upgrade = player.canbuild(x, y)
-			if upgrade then
-				cursor.x = block[i].x + block.types[block[i].type].width
-				cursor.y = block[i].y + block.types[block[i].type].height
-			end
-			i = i + 1
-		end
-	end
-	]]
 end
 
 --initialize cursor properties

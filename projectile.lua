@@ -1,9 +1,3 @@
---require('util')
---require('settings')
---require('player')
---require('block')
-
-
 projectile = {}
 
 projectile.types = {}

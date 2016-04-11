@@ -25,10 +25,6 @@ weapon['deathinator'].type = 'deathinator'
 weapon['deathinator'].minammo = 30
 weapon['deathinator'].maxammo = 300
 
-weapon['shotgun'] = {}
-weapon['shotgun'].rate = 1
-weapon['shotgun'].type = 'shotgun'
-
 weapon['rifle'] = {}
 weapon['rifle'].rate = 1.8
 weapon['rifle'].type = 'rifle'

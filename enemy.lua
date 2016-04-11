@@ -1,8 +1,3 @@
---require("player")
---require("projectile")
---require("weapon")
---require('pickup')
-
 enemy = {}
 
 --properties in relation to player movement
