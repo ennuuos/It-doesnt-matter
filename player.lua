@@ -5,7 +5,7 @@ player.width = 20
 player.height = 20
 player.x = settings.windowwidth/2
 player.y = settings.windowheight/2
-player.health = 100
+player.health = 1000
 player.speed = 230
 player.color = {r = 200, g = 100, b = 200}
 player.weaponDT = 1000 -- time since last fire. Used for fire rate.

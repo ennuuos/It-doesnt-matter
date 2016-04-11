@@ -24,6 +24,13 @@ pickup.types['weapon'].color = {r = 255, g = 204, b = 0}
 pickup.types['weapon'].func = function(i) pickup.getweapon(i) end
 pickup.types['weapon'].vweaponname = 'minigun'
 
+pickup.types['health'] = {}
+pickup.types['health'].width = 10
+pickup.types['health'].height = 10
+pickup.types['health'].color = {r = 0, g = 255, b = 0}
+pickup.types['health'].func = function(i) pickup.addhealth(i) end
+pickup.types['health'].vhealth = 10
+
 pickup.magnetspeed = 130
 pickup.magnetrange = 70
 
@@ -37,6 +44,10 @@ function pickup.addmatter(i)
 	table.remove(pickup, i)
 end
 
+function pickup.addhealth(i)
+	player.health = player.health + pickup[i].vhealth
+	table.remove(pickup, i)
+end
 
 function pickup.getweapon(i)
 	hasWeapon = false
