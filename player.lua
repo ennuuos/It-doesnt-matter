@@ -1,6 +1,5 @@
 player = {}
 
-
 player.width = 20
 player.height = 20
 player.x = settings.windowwidth/2
@@ -11,8 +10,10 @@ player.color = {r = 200, g = 100, b = 200}
 player.weaponDT = 1000 -- time since last fire. Used for fire rate.
 player.equippedIndex = 1
 player.weapons = { -- player's inventory
-	{	name =  'minigun',
-		ammo = 150	},
+	{
+		name =  'minigun',
+		ammo = 150
+	},
 }
 player.equippedWeapon = player.weapons[player.equippedIndex].name
 player.score = 0
@@ -21,7 +22,6 @@ player.upgradespeed = 50
 
 player.maxspeed = 800
 player.maxhealth = 1500
-
 --block building stats
 player.matterCost = 100 -- cost of 1mu
 player.healthBonus = 500
@@ -33,7 +33,6 @@ function player.draw()
 	love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
 end
 
---NOT CALLED
 --[[
 	TODO: Remove this, or call it
 ]]
@@ -43,7 +42,6 @@ end
 
 function player.move(dt)
 	x, y = player.getInput() -- get input returns an x and y
-
 	magnitude = player.normalizedSpeed(x,y) -- gets a scalar to multiply the movement by (so it doesn't go faster diagonally)
 	--apply movement
 	player.x = player.x + magnitude * dt * x
@@ -52,6 +50,7 @@ function player.move(dt)
 	player.x, player.y = util.clamprectangle(player.x, player.y, player.width, player.height, 0, settings.windowwidth, 0, settings.windowheight)
 
 end
+
 --herp derp
 function player.damage(damage)
 	player.health = player.health - damage -- When someone insults you, you're emotionally damaged
@@ -61,9 +60,11 @@ function player.damage(damage)
 	end
 end
 
+
 function player.lose() -- This function is effectively the grim reaper. awkies.
 	player.speed = 0
 end
+
 
 function player.getInput() -- gets input...   well what else would it do?
 	--returns an x and a y of 0, -1 or 1.
@@ -85,15 +86,20 @@ function player.getInput() -- gets input...   well what else would it do?
 	return x, y
 end
 
-function player.center() return player.x + player.width/2, player.y + player.height/2 end -- returns the center of the player rect as a coord, instead of the top left corner. useful
+
+function player.center()
+	return player.x + player.width/2, player.y + player.height/2
+end -- returns the center of the player rect as a coord, instead of the top left corner. useful
+
 
 function player.collideAll() -- iterate and call collide
 	i = 1
-	while i <= table.getn(block) do
+	while i <= #block do
 		player.collide(i)
 		i = i + 1
 	end
 end
+
 
 function player.collide(i) -- does what it says. The player collides with blocks
 	values = { -- These are the values to compare to find the least intruded side
@@ -107,12 +113,12 @@ function player.collide(i) -- does what it says. The player collides with blocks
 	if player.x + player.width > block[i].x and player.x < block[i].x + block[i].width and player.y + player.height > block[i].y and player.y < block[i].y + block[i].height then
 		lowest = 1 -- the least intruded side (currently)
 		hi = 2 -- the next value to compare (from values table)
-		while hi <= 4 do -- there are 4 values. 
+		while hi <= 4 do -- there are 4 values.
 			if values[hi] < values[lowest] then -- if this value is lower, it means the corresponfing side has less intrusion.
 				lowest = hi 						--in that case we set the least intruded side as this one
 			end
 			hi = hi + 1
-		end 
+		end
 
 		--check what lowest is
 		 		--  and set the player position to be somewhere not intruded.
@@ -140,6 +146,7 @@ function player.update(dt)
 	player.collideAll()
 end
 
+
 function player.clamp()
 	player.matter = util.clamplow(player.matter, 0)
 	player.health = util.clamplow(player.health, 0)
@@ -162,6 +169,7 @@ function player.operateWeapon(dt)
 	end
 end
 
+
 function player.normalizedSpeed(x,y) -- returns player.speed if x or y is 0 else returns player.speed/root2
 	if x ~= 0 and y ~= 0 then
 		--pythagoras
@@ -172,11 +180,12 @@ function player.normalizedSpeed(x,y) -- returns player.speed if x or y is 0 else
 	return magnitude
 end
 
+
 function player.upgrade(dt)
 	closest = false
 	if love.mouse.isDown(2) then
 		i = 1
-		while i <= table.getn(block) do
+		while i <= #block do
 			if util.collides(cursor.x - cursor.width/2, cursor.y - cursor.height/2, cursor.width, cursor.height, block[i].x, block[i].y, block[i].width, block[i].height) then
 				if closest then
 					ax,ay = block.center(i)
@@ -200,7 +209,7 @@ function player.upgrade(dt)
 			if player.matter > 0 then
 				bi = 1
 				collides = false
-				while bi <= table.getn(block) do
+				while bi <= #block do
 					if bi ~= i then
 						if util.collides(block[i].x - dt * 25, block[i].y - dt * 25, block[i].width + dt * 50, block[i].height + dt * 50, block[bi].x, block[bi].y, block[bi].width, block[bi].height) then
 							collides =  true
@@ -244,21 +253,25 @@ cursor.standard.cornerLength = 5
 cursor.standard.pointRadius = 1
 cursor.standard.pointSegments = 4 -- needed for circle rendering
 
+
 function cursor.get() -- pretty simple. sets cursor.x and cursor.y as x and y of mouse. saves time.
 	cursor.x, cursor.y = love.mouse.getPosition( )
 	return cursor.x, cursor.y
 end
+
 
 function cursor.reset() -- pretty simple. sets cursor.x and cursor.y as x and y of mouse. saves time.
 	cursor.width = cursor.standard.width
 	cursor.height = cursor.standard.height
 end
 
+
 function cursor.drawaimline()
 	love.graphics.setColor(50,50,50)
 	love.graphics.line(player.x + player.width/2, player.y + player.height/2, cursor.x, cursor.y)
 
 end
+
 
 function cursor.draw()
 
@@ -289,6 +302,7 @@ function cursor.draw()
 	love.graphics.circle("fill", cursor.x, cursor.y, cursor.pointRadius, cursor.pointSegments)
 end
 
+
 function cycleWeapon (dir) -- changes to next or previous weapon. Triggered by a love.keypressed call
 	if dir then -- direction is true if the cyclenext key is pressed, or false if it is cycleback
 		player.equippedIndex = player.equippedIndex + 1
@@ -296,13 +310,14 @@ function cycleWeapon (dir) -- changes to next or previous weapon. Triggered by a
 		player.equippedIndex = player.equippedIndex - 1
 	end
 	if player.equippedIndex < 1 then -- loops from bottom to top
-		player.equippedIndex = table.getn(player.weapons)
+		player.equippedIndex = #player.weapons
 	end
-	if player.equippedIndex > table.getn(player.weapons) then --loops from top to bottom
+	if player.equippedIndex > #player.weapons then --loops from top to bottom
 		player.equippedIndex = 1
 	end
 	player.equippedWeapon = player.weapons[player.equippedIndex].name -- changes the equipped weapon to the new index
 end
+
 
 function player.makeblock(x, y) -- creates a new block
 	if player.canbuild(x, y) then -- checks if the player can build at the given x, y
@@ -314,12 +329,13 @@ function player.makeblock(x, y) -- creates a new block
 	end
 end
 
+
 function player.canbuild(x, y) -- checks if player can build at the given x, y
 	px, py = player.center()
 	if player.matter >= player.matterCost and util.distance(px, py, x, y) <= player.maxRange then -- checks matter cost and distance of x,y from player
 		if util.collides(player.x, player.y, player.width, player.height, x - cursor.width/2, y - cursor.width/2, cursor.width, cursor.height) == false then -- checks collision
 			i = 1
-			while i <= table.getn(block) do -- checks all block collision
+			while i <= block do -- checks all block collision
 				if util.collides(block[i].x, block[i].y, block[i].width, block[i].height, x - cursor.width/2, y - cursor.width/2, cursor.width, cursor.height) then
 					if util.contains(cursor.x, cursor.y, block[i].x, block[i].y, block[i].width, block[i].height) then
 						if util.distptrect(player.x, player.y, block[i].x, block[i].y, block[i].width, block[i].height) < player.maxRange then
@@ -334,20 +350,20 @@ function player.canbuild(x, y) -- checks if player can build at the given x, y
 				i = i + 1
 			end
 			i = 1
-			while i <= table.getn(enemy) do -- checks all enemy collision
+			while i <= enemy do -- checks all enemy collision
 				if util.collides(enemy[i].x, enemy[i].y, enemy.types[enemy[i].type].width, enemy.types[enemy[i].type].height, x - cursor.width/2, y - cursor.width/2, cursor.width, cursor.height) then
 					return false, false
 				end
 				i = i + 1
 			end
-
 			return true, false
 		end
 	end
 	return false
 end
 
-function player.keypressed( key ) -- called by love.  
+
+function player.keypressed( key ) -- called by love.
 	if key == settings.keys.cycleforward then --self explanatory?
 		cycleWeapon(true)
 	end
@@ -355,6 +371,7 @@ function player.keypressed( key ) -- called by love.
 		cycleWeapon(false)
 	end
 end
+
 
 function player.mousepressed(x ,y, button, istouch) -- called by love
 	if button == 2 then -- if mouse 2 is pressed

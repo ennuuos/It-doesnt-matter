@@ -1,10 +1,8 @@
-
 require('settings')
 require('game')
 require('player')
 require('enemy')
 require('block')
-
 require('pickup')
 require('util')
 require('projectile')
@@ -14,6 +12,7 @@ require('menu')
 function love.load(arg) -- Load the level
 	game.init()
 end
+
 
 function love.update(dt)
 	if game.started then
@@ -31,8 +30,8 @@ function love.update(dt)
 	game.updatedt(dt)
 end
 
-function love.draw()
 
+function love.draw()
 	--draw all of everything
 	if game.started then
 		block.drawAll()
@@ -46,6 +45,4 @@ function love.draw()
 	else
 		menu.draw()
 	end
-	
-
 end

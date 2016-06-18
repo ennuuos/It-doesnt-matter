@@ -13,106 +13,108 @@ enemy.types = {
 	'brick',
 	'sniper',
 	'victor von deathenstein',
-	--'telepotato'
 }
 
-enemy.types['standard'] = {}
-enemy.types['standard'].width = 20
-enemy.types['standard'].height = 20
-enemy.types['standard'].speed = 80
-enemy.types['standard'].tick = 5  --time between enemy[i] decisions
-enemy.types['standard'].health = 80
-enemy.types['standard'].fireRate = 0.3	--time between shots
-enemy.types['standard'].projectileType = "standard"
-enemy.types['standard'].scoreValue = 10
-enemy.types['standard'].color = {r = 10, g = 100, b = 12}
-enemy.types['standard'].weapon = 'standard'
-enemy.types['standard'].deathfunction = function(i) enemy.droppoints(i) end
+enemy.types['standard'] = {
+	width = 20,
+	height = 20,
+	speed = 80,
+	tick = 5,  --time between enemy[i] decisions
+	health = 80,
+	fireRate = 0.3,	--time between shots
+	projectileType = "standard",
+	scoreValue = 10,
+	color = {r = 10, g = 100, b = 12},
+	weapon = 'standard',
+	deathfunction = function(i) enemy.droppoints(i) end,
+}
 
-enemy.types['heavy'] = {}
-enemy.types['heavy'].width = 40
-enemy.types['heavy'].height = 40
-enemy.types['heavy'].speed = 80
-enemy.types['heavy'].tick = 5  --time between enemy[i] decisions
-enemy.types['heavy'].health = 180
-enemy.types['heavy'].scoreValue = 20
-enemy.types['heavy'].color = {r = 255, g = 100, b = 12}
-enemy.types['heavy'].weapon = 'minigun'
-enemy.types['heavy'].deathfunction = function(i) enemy.dropblock(i) enemy.droppoints(i) enemy.dropweapon(i) end
-
-enemy.types['victor von deathenstein'] = {}
-enemy.types['victor von deathenstein'].width = 35
-enemy.types['victor von deathenstein'].height = 35
-enemy.types['victor von deathenstein'].speed = 100
-enemy.types['victor von deathenstein'].tick = 2  --time between enemy[i] decisions
-enemy.types['victor von deathenstein'].health = 420
-enemy.types['victor von deathenstein'].scoreValue = 100
-enemy.types['victor von deathenstein'].color = {r = 0, g = 0, b = 0}
-enemy.types['victor von deathenstein'].weapon = 'deathinator'
-enemy.types['victor von deathenstein'].deathfunction = function(i) enemy.droppoints(i) enemy.dropweapon(i) enemy.dropblock(i) end
-
-enemy.types['telepotato'] = {}
-enemy.types['telepotato'].width = 8
-enemy.types['telepotato'].height = 8
-enemy.types['telepotato'].speed = 1000
-enemy.types['telepotato'].tick = 0.1  --time between enemy[i] decisions
-enemy.types['telepotato'].health = 1000
-enemy.types['telepotato'].scoreValue = 10000
-enemy.types['telepotato'].color = {r = 255, g = 0, b = 255}
-enemy.types['telepotato'].weapon = 'standard'
-enemy.types['telepotato'].deathfunction = function(i)  end
+enemy.types['heavy'] = {
+	width = 40,
+	height = 40,
+	speed = 80,
+	tick = 5,  --time between enemy[i] decisions
+	health = 180,
+	scoreValue = 20,
+	color = {r = 255, g = 100, b = 12},
+	weapon = 'minigun',
+	deathfunction = function(i) enemy.dropblock(i) enemy.droppoints(i) enemy.dropweapon(i) end,
+}
 
 
-enemy.types['intellectual'] = {}
-enemy.types['intellectual'].width = 15
-enemy.types['intellectual'].height = 15
-enemy.types['intellectual'].speed = 60
-enemy.types['intellectual'].tick = 0.5  --time between enemy[i] decisions
-enemy.types['intellectual'].health = 40
-enemy.types['intellectual'].scoreValue = 20
-enemy.types['intellectual'].color = {r = 0, g = 100, b = 100}
-enemy.types['intellectual'].weapon = 'standard'
-enemy.types['intellectual'].deathfunction = function(i) enemy.droppoints(i) enemy.drophealth(i) end
+enemy.types['victor von deathenstein'] = {
+	width = 35,
+	height = 35,
+	speed = 100,
+	tick = 2,  --time between enemy[i] decisions
+	health = 420,
+	scoreValue = 100,
+	color = {r = 0, g = 0, b = 0},
+	weapon = 'deathinator',
+	deathfunction = function(i) enemy.droppoints(i) enemy.dropweapon(i) enemy.dropblock(i) end,
+}
 
-enemy.types['sniper'] = {}
-enemy.types['sniper'].width = 15
-enemy.types['sniper'].height = 15
-enemy.types['sniper'].speed = 60
-enemy.types['sniper'].tick = 10  --time between enemy[i] decisions
-enemy.types['sniper'].health = 40
-enemy.types['sniper'].scoreValue = 20
-enemy.types['sniper'].color = {r = 0, g = 25, b = 25}
-enemy.types['sniper'].weapon = 'rifle'
-enemy.types['sniper'].deathfunction = function(i) enemy.droppoints(i) enemy.dropweapon(i) end
 
-enemy.types['speedyfucker'] = {}
-enemy.types['speedyfucker'].width = 15
-enemy.types['speedyfucker'].height = 15
-enemy.types['speedyfucker'].speed = 160
-enemy.types['speedyfucker'].tick = 0.5  --time between enemy[i] decisions
-enemy.types['speedyfucker'].health = 40
-enemy.types['speedyfucker'].scoreValue = 20
-enemy.types['speedyfucker'].color = {r = 255, g = 30, b = 30}
-enemy.types['speedyfucker'].weapon = 'standard'
-enemy.types['speedyfucker'].vspeed = 25
-enemy.types['speedyfucker'].deathfunction = function(i) enemy.droppoints(i) enemy.dropspeed(i) end
+enemy.types['intellectual'] = {
+	enemy.types['intellectual'].width = 15,
+	enemy.types['intellectual'].height = 15,
+	enemy.types['intellectual'].speed = 60,
+	enemy.types['intellectual'].tick = 0.5,  --time between enemy[i] decisions
+	enemy.types['intellectual'].health = 40,
+	enemy.types['intellectual'].scoreValue = 20,
+	enemy.types['intellectual'].color = {r = 0, g = 100, b = 100},
+	enemy.types['intellectual'].weapon = 'standard',
+	enemy.types['intellectual'].deathfunction = function(i) enemy.droppoints(i) enemy.drophealth(i) end,
+}
 
-enemy.types['brick'] = {}
-enemy.types['brick'].width = 55
-enemy.types['brick'].height = 55
-enemy.types['brick'].speed = 160
-enemy.types['brick'].tick = 10  --time between enemy[i] decisions
-enemy.types['brick'].health = 800
-enemy.types['brick'].scoreValue = 20
-enemy.types['brick'].color = {r = 100, g = 50, b = 50}
-enemy.types['brick'].weapon = 'smallstick'
-enemy.types['brick'].deathfunction = function(i) enemy.droppoints(i) enemy.dropmaxhealth(i) end
+
+enemy.types['sniper'] = {
+	width = 15,
+	height = 15,
+	speed = 60,
+	tick = 10,  --time between enemy[i] decisions
+	health = 40,
+	scoreValue = 20,
+	color = {r = 0, g = 25, b = 25},
+	weapon = 'rifle',
+	deathfunction = function(i) enemy.droppoints(i) enemy.dropweapon(i) end,
+}
+
+
+enemy.types['speedyfucker'] = {
+	enemy.width = 15,
+	enemy.height = 15,
+	enemy.speed = 160,
+	enemy.tick = 0.5,  --time between enemy[i] decisions
+	enemy.health = 40,
+	enemy.scoreValue = 20,
+	enemy.color = {r = 255, g = 30, b = 30},
+	enemy.weapon = 'standard',
+	enemy.vspeed = 25,
+	enemy.types['speedyfucker'].deathfunction = function(i) enemy.droppoints(i) enemy.dropspeed(i) end
+}
+
+
+enemy.types['brick'] = {
+width = 55,
+height = 55,
+speed = 160,
+tick = 10,  --time between enemy[i] decisions
+health = 800,
+scoreValue = 20,
+color = {r = 100, g = 50, b = 50},
+weapon = 'smallstick',
+deathfunction = function(i) enemy.droppoints(i) enemy.dropmaxhealth(i) end,
+}
+
 
 --pickup drop functions
 function enemy.dropblock(i)
 	x, y = enemy.center(i)
 	block.new(x, y, 'standard')
 end
+
+
 function enemy.droppoints(i)
 	x, y = enemy.center(i)
 	x = x + math.random(-10,10)/10
@@ -121,6 +123,8 @@ function enemy.droppoints(i)
 	pi = pickup.new('points', x, y)
 	pickup[pi].vscore = enemy[i].score
 end
+
+
 function enemy.dropspeed(i)
 	x, y = enemy.center(i)
 	x = x + math.random(-10,10)/10
@@ -129,6 +133,8 @@ function enemy.dropspeed(i)
 	pi = pickup.new('speed', x, y)
 	pickup[pi].vspeed = enemy[i].vspeed
 end
+
+
 function enemy.dropmaxhealth(i)
 	x, y = enemy.center(i)
 	x = x + math.random(-10,10)/10
@@ -136,6 +142,8 @@ function enemy.dropmaxhealth(i)
 
 	pi = pickup.new('maxhealth', x, y)
 end
+
+
 function enemy.dropweapon(i)
 	x, y = enemy.center(i)
 	x = x + math.random(-10,10)/10
@@ -145,6 +153,8 @@ function enemy.dropweapon(i)
 	pickup[pi].vweapon = enemy.types[enemy[i].type].weapon
 	pickup[pi].ammo = math.random(weapon[pickup[pi].vweapon].minammo, weapon[pickup[pi].vweapon].maxammo)
 end
+
+
 function enemy.drophealth(i)
 	x, y = enemy.center(i)
 	x = x + math.random(-10,10)/10
@@ -154,27 +164,25 @@ function enemy.drophealth(i)
 	pickup[pi].vhealth = math.random(5,100)
 end
 
-
 --controlled enemy spawn
 function enemy.new(x, y, type)
-	i = table.getn(enemy) + 1
-
-	enemy[i] = {}
-	enemy[i].x = x
-	enemy[i].y = y
-	enemy[i].type = type
-	enemy[i].health = enemy.types[type].health
-	enemy[i].tickCounter = 0
-	enemy[i].fireCounter = 1000
-	enemy[i].behaviour = "move"
-	enemy[i].score = enemy.types[type].scoreValue
-	enemy[i].vspeed = enemy.types[type].vspeed
+	enemy[#enemy + 1] = {
+		x = x,
+		y = y,
+		type = type,
+		health = enemy.types[type].health,
+		tickCounter = 0,
+		fireCounter = 1000,
+		behaviour = "move",
+		score = enemy.types[type].scoreValue,
+		vspeed = enemy.types[type].vspeed,
+	}
 end
 
 --spawn a new enemy at a random position
 function enemy.newrandom()
-	i = table.getn(enemy) + 1
-	randmax = table.getn(enemy.types)
+	i = #enemy + 1
+	randmax = #enemy.types
 	randmax = math.min(randmax, enemy.spawn.currentwave)
 	enemy.new(math.random(0, settings.windowwidth), math.random(0, settings.windowheight), enemy.types[math.random(1, randmax)])
 end
@@ -184,10 +192,11 @@ function enemy.draw(i)
 	love.graphics.setColor(enemy.types[enemy[i].type].color.r, enemy.types[enemy[i].type].color.g, enemy.types[enemy[i].type].color.b)
 	love.graphics.rectangle("fill", enemy[i].x, enemy[i].y, enemy.types[enemy[i].type].width, enemy.types[enemy[i].type].height)
 end
+
 --iterate and call draw for each enemy
 function enemy.drawAll()
 	i = 1
-	while i <= table.getn(enemy) do
+	while i <= #enemy do
 		enemy.draw(i)
 		i = i + 1
 	end
@@ -216,9 +225,9 @@ end
 --iterate through each enemy and block and check for collisions
 function enemy.collideall()
 	ei = 1	--enemy index
-	while ei <= table.getn(enemy) do
+	while ei <= #enemy do
 		bi = 1	--block index
-		while bi <= table.getn(block) do
+		while bi <= #block do
 			enemy.collide(ei, bi)
 			bi = bi + 1
 		end
@@ -246,7 +255,7 @@ function enemy.collide(ei, bi)
 				lowest = hi
 			end
 			hi = hi + 1
-		end 
+		end
 
 		--push player to the side of least intrusion
 		if 		lowest == 1 then
@@ -289,7 +298,7 @@ function enemy.move(dt, i)
 	distance = util.distance(px, py, ex, ey)
 
 	--if in buffer distance, use point movement
-	if distance < buffer then	
+	if distance < buffer then
 		--for x and y, get a distance from plus or minus (mindistance to buffer)
 		--set enemy movement goal to player pos plus random x and y
 		if enemy[i].goalx == nil then
@@ -319,6 +328,7 @@ function enemy.move(dt, i)
 			end
 		end
 	end
+
 	--if the player runs away too fast, go back to persuit movement
 	if distance > 1.5 * buffer then
 		enemy[i].goalx = nil
@@ -329,11 +339,11 @@ function enemy.move(dt, i)
 	if enemy[i].goalx then
 		x, y = util.diffxy(ex, ey, enemy[i].goalx, enemy[i].goaly)
 	end
-				
+
 	--get them as +ve or -ve 1
 	x = math.abs(x)/x
 	y = math.abs(y)/y
-	magnitude = enemy.normalizedSpeed(x, y, i)	
+	magnitude = enemy.normalizedSpeed(x, y, i)
 	--apply movement
 	enemy[i].x = enemy[i].x + magnitude * dt * x
 	enemy[i].y = enemy[i].y + magnitude * dt * y
@@ -387,13 +397,12 @@ end
 --iterate through each enemy, calling update code
 function enemy.updateAll(dt)
 	i = 1
-	while i <= table.getn(enemy) do
+	while i <= #enemy do
 		enemy.update(dt, i)
 		i = i + 1
 	end
 	enemy.collideall()
 end
-
 
 enemy.spawn = {}
 enemy.spawn.cooltime = 10
@@ -402,7 +411,7 @@ enemy.spawn.wavedelta = 0
 enemy.spawn.cooldelta = enemy.spawn.cooltime/2
 enemy.spawn.currentwave = 1
 function enemy.spawn.update(dt)
-	if table.getn(enemy) > 0 then
+	if #enemy > 0 then
 		enemy.spawn.wavedelta = enemy.spawn.wavedelta + dt
 		enemy.spawn.cooldelta = 0
 		if enemy.spawn.wavedelta > enemy.spawn.wavemaxtime then
@@ -419,6 +428,7 @@ function enemy.spawn.update(dt)
 		end
 	end
 end
+
 
 function enemy.spawn.newwave(wave)
 	i = 1

@@ -2,40 +2,45 @@ projectile = {}
 
 projectile.types = {}
 
-projectile.types['standard'] = {}
-projectile.types['standard'].speed = 300
-projectile.types['standard'].radius = 3
-projectile.types['standard'].color = {r = 255, g = 255, b = 255}
-projectile.types['standard'].damage = 20
+projectile.types['standard'] = {
+	speed = 300,
+	radius = 3,
+	color = {r = 255, g = 255, b = 255},
+	damage = 20,
+}
 
-projectile.types['fast'] = {}
-projectile.types['fast'].speed = 500
-projectile.types['fast'].radius = 5
-projectile.types['fast'].color = {r = 255, g = 0, b = 0}
-projectile.types['fast'].damage = 35
+projectile.types['fast'] = {
+	speed = 500,
+	radius = 5,
+	color = {r = 255, g = 0, b = 0},
+	damage = 35,
+}
 
-projectile.types['revolver'] = {}
-projectile.types['revolver'].speed = 550
-projectile.types['revolver'].radius = 7
-projectile.types['revolver'].color = {r = 255, g = 204, b = 0}
-projectile.types['revolver'].damage = 60
+projectile.types['revolver'] = {
+	speed = 550,
+	radius = 7,
+	color = {r = 255, g = 204, b = 0},
+	damage = 60,
+}
 
-projectile.types['deathinator'] = {}
-projectile.types['deathinator'].speed = 600
-projectile.types['deathinator'].radius = 7
-projectile.types['deathinator'].color = {r = 0, g = 0, b = 0}
-projectile.types['deathinator'].damage = 100
+projectile.types['deathinator'] = {
+	speed = 600,
+	radius = 7,
+	color = {r = 0, g = 0, b = 0},
+	damage = 100,
+}
 
-projectile.types['rifle'] = {}
-projectile.types['rifle'].speed = 300
-projectile.types['rifle'].radius = 7
-projectile.types['rifle'].color = {r = 0, g = 0, b = 255}
-projectile.types['rifle'].damage = 10000
+projectile.types['rifle'] = {
+	speed = 300,
+	radius = 7,
+	color = {r = 0, g = 0, b = 255},
+	damage = 10000,
+}
 
 --create a new projectile
 function projectile.new(type, x, y, tx, ty, bIsPlayer)
 
-	i = table.getn(projectile) + 1
+	i = #projectile + 1
 	projectile[i] = {}
 	projectile[i].x = x
 	projectile[i].y = y
@@ -57,14 +62,9 @@ function projectile.updateAll(dt)
 			projectile.update(i, dt)
 		end
 	end
---[[
-	i = 1
-	while i <= table.getn(projectile) do
-		projectile.update(i, dt)
-		i = i + 1
-	end
-]]
 end
+
+
 function projectile.update(i, dt)
 	--move projectile
 	projectile[i].x = projectile[i].x + projectile[i].vX * dt
@@ -81,11 +81,13 @@ end
 --iterate and call draw function
 function projectile.drawAll()
 	i = 1
-	while i <= table.getn(projectile) do
+	while i <= #projectile do
 		projectile.draw(i)
 		i = i + 1
 	end
 end
+
+
 function projectile.draw(i)
 	love.graphics.setColor(projectile.types[projectile[i].type].color.r, projectile.types[projectile[i].type].color.g, projectile.types[projectile[i].type].color.b)
 	if projectile[i].type == 'deathinator' then
@@ -105,6 +107,7 @@ end
 function projectile.rect(i)
 	return projectile[i].x - projectile[i].radius, projectile[i].y - projectile[i].radius, projectile[i].radius * 2, projectile[i].radius * 2
 end
+
 
 function projectile.checkcollisions(i)
 	if projectile[i] then
@@ -131,15 +134,19 @@ function projectile.collisionplayer(i)
 		projectile.destroy(i)
 	end
 end
+
+
 function projectile.collisionallenemies(i)
 	ei = 1
-	while ei <= table.getn(enemy) do
+	while ei <= #enemy do
 		if projectile[i] then
 			projectile.collisionenemy(i, ei)
 		end
 		ei = ei + 1
 	end
 end
+
+
 function projectile.collisionenemy(i, ei)
 	x, y, w, h = projectile.rect(i)
 	if util.collides(x, y, w, h, enemy[ei].x, enemy[ei].y, enemy.types[enemy[ei].type].width, enemy.types[enemy[ei].type].height) then
@@ -147,15 +154,19 @@ function projectile.collisionenemy(i, ei)
 		projectile.destroy(i)
 	end
 end
+
+
 function projectile.collisionallblocks(i)
 	bi = 1
-	while bi <= table.getn(block) do
+	while bi <= #block do
 		if projectile[i] then
 			projectile.collisionblock(i, bi)
 		end
 		bi = bi + 1
 	end
 end
+
+
 function projectile.collisionblock(i, bi)
 	x, y, w, h = projectile.rect(i)
 	if util.collides(x, y, w, h, block[bi].x, block[bi].y, block[bi].width, block[bi].height) then

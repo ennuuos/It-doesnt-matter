@@ -16,30 +16,35 @@ menu.cursor.renderx = 0
 menu.cursor.rendery = 0
 menu.cursor.onbutton = false
 menu.button = {}
-
 menu.commands = {}
+
+
 function menu.commands.start()
 	game.start()
 end
+
 
 function menu.update()
 	menu.cursor.get()
 	menu.cursor.hover()
 end
 
+
 function menu.draw()
 	menu.button.drawAll()
 	menu.cursor.draw()
 end
 
+
 function menu.cursor.get()
 	menu.cursor.x, menu.cursor.y = love.mouse.getPosition( )
 end
 
+
 function menu.cursor.hover()
 	i = 1
 	menu.cursor.onbutton = false
-	while i <= table.getn(menu.button) do
+	while i <= #menu.button do
 		if util.contains(menu.cursor.x, menu.cursor.y, menu.button[i].x, menu.button[i].y, menu.button[i].width, menu.button[i].height) then
 			menu.cursor.onbutton = i
 		end
@@ -47,6 +52,7 @@ function menu.cursor.hover()
 	end
 	menu.cursor.set()
 end
+
 
 function menu.cursor.set()
 	if menu.cursor.onbutton then
@@ -60,6 +66,7 @@ function menu.cursor.set()
 	end
 end
 
+
 function menu.cursor.reset()
 	menu.cursor.width = menu.cursor.default.width
 	menu.cursor.height = menu.cursor.default.height
@@ -70,7 +77,7 @@ end
 
 
 function menu.button.new(x, y, w, h, t, c)
-	i = table.getn(menu.button) + 1
+	i = #menu.button + 1
 	menu.button[i] = {}
 	menu.button[i].x = x
 	menu.button[i].y = y
@@ -80,9 +87,10 @@ function menu.button.new(x, y, w, h, t, c)
 	menu.button[i].command = c
 end
 
+
 function menu.button.drawAll()
 	i = 1
-	while i <= table.getn(menu.button) do
+	while i <= #menu.button do
 		menu.button.draw(i)
 		i = i + 1
 	end

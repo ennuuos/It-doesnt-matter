@@ -1,66 +1,76 @@
---require('player')
-
 pickup = {}
 
 pickup.types = {}
-pickup.types['points'] = {}
-pickup.types['points'].width = 10
-pickup.types['points'].height = 10
-pickup.types['points'].color = {r = 20, g = 180, b = 180}
-pickup.types['points'].func = function(i) pickup.addscore(i) end
-pickup.types['points'].vscore = 85
+pickup.types['points'] = {
+	width = 10,
+	height = 10,
+	color = {r = 20, g = 180, b = 180},
+	func = function(i) pickup.addscore(i) end,
+	vscore = 85,
+}
 
-pickup.types['matter'] = {}
-pickup.types['matter'].width = 10
-pickup.types['matter'].height = 10
-pickup.types['matter'].color = {r = 94, g = 42, b = 64}
-pickup.types['matter'].func = function(i) pickup.addmatter(i) end
-pickup.types['matter'].vmatter = 40
+pickup.types['matter'] = {
+	width = 10,
+	height = 10,
+	color = {r = 94, g = 42, b = 64},
+	func = function(i) pickup.addmatter(i) end,
+	vmatter = 40,
+}
 
-pickup.types['weapon'] = {}
-pickup.types['weapon'].width = 10
-pickup.types['weapon'].height = 10
-pickup.types['weapon'].color = {r = 255, g = 204, b = 0}
-pickup.types['weapon'].func = function(i) pickup.getweapon(i) end
-pickup.types['weapon'].vweaponname = 'minigun'
+pickup.types['weapon'] = {
+	width = 10,
+	height = 10,
+	color = {r = 255, g = 204, b = 0},
+	func = function(i) pickup.getweapon(i) end,
+	vweaponname = 'minigun',
+}
 
-pickup.types['health'] = {}
-pickup.types['health'].width = 10
-pickup.types['health'].height = 10
-pickup.types['health'].color = {r = 0, g = 255, b = 0}
-pickup.types['health'].func = function(i) pickup.addhealth(i) end
-pickup.types['health'].vhealth = 10
+pickup.types['health'] = {
+	width = 10,
+	height = 10,
+	color = {r = 0, g = 255, b = 0},
+	func = function(i) pickup.addhealth(i) end,
+	vhealth = 10,
+}
 
-pickup.types['speed'] = {}
-pickup.types['speed'].width = 10
-pickup.types['speed'].height = 10
-pickup.types['speed'].color = {r = 255, g = 0, b = 0}
-pickup.types['speed'].func = function(i) pickup.addspeed(i) end
-pickup.types['speed'].vspeed = 10
+pickup.types['speed'] = {
+	width = 10,
+	height = 10,
+	color = {r = 255, g = 0, b = 0},
+	func = function(i) pickup.addspeed(i) end,
+	vspeed = 10,
+}
 
-pickup.types['maxhealth'] = {}
-pickup.types['maxhealth'].width = 10
-pickup.types['maxhealth'].height = 10
-pickup.types['maxhealth'].color = {r = 255, g = 255, b = 0}
-pickup.types['maxhealth'].func = function(i) pickup.addmaxhealth(i) end
+
+pickup.types['maxhealth'] = {
+	width = 10,
+	height = 10,
+	color = {r = 255, g = 255, b = 0},
+	func = function(i) pickup.addmaxhealth(i) end,
+}
+
 
 pickup.magnetspeed = 130
 pickup.magnetrange = 70
+
 
 function pickup.addscore(i)
 	player.score = player.score + pickup[i].vscore
 	table.remove(pickup, i)
 end
 
+
 function pickup.addspeed(i)
 	player.speed = math.min(player.maxspeed, player.speed + pickup[i].vspeed)
 	table.remove(pickup, i)
 end
 
+
 function pickup.addmatter(i)
 	player.matter = player.matter + pickup[i].vmatter
 	table.remove(pickup, i)
 end
+
 
 function pickup.addmaxhealth(i)
 	player.maxhealth = player.maxhealth + math.random(50,400)
@@ -73,33 +83,33 @@ function pickup.addhealth(i)
 	table.remove(pickup, i)
 end
 
+
 function pickup.getweapon(i)
 	hasWeapon = false
 	weapIndex = 0
 	c = 1
-	while c <= table.getn(player.weapons) do
+	while c <= player.weapons do
 		if player.weapons[c].name == pickup[i].vweapon then
 			hasWeapon = true
 			weapIndex = c
 		end
 		c = c + 1
 	end
-
 	if hasWeapon then
 		--give ammo maybe
 		player.weapons[weapIndex].ammo = player.weapons[weapIndex].ammo + math.random(weapon[pickup[i].vweapon].minammo, weapon[pickup[i].vweapon].maxammo)
 	else
-		newweap = table.getn(player.weapons) + 1
+		newweap = player.weapons + 1
 		player.weapons[newweap] = {}
 		player.weapons[newweap].name = pickup[i].vweapon
 		player.weapons[newweap].ammo = math.random(weapon[pickup[i].vweapon].minammo, weapon[pickup[i].vweapon].maxammo)
 	end
-
 	table.remove(pickup, i)
 end
 
+
 function pickup.new(type, x, y)
-	i = table.getn(pickup) + 1
+	i = pickup + 1
 	pickup[i] = {}
 	pickup[i].type = type
 
@@ -111,13 +121,15 @@ function pickup.new(type, x, y)
 	return i
 end
 
+
 function pickup.drawAll()
 	i = 1
-	while i <= table.getn(pickup) do
+	while i <= pickup do
 		pickup.draw(i)
 		i = i + 1
 	end
 end
+
 
 function pickup.draw(i)
 	love.graphics.setColor(pickup.types[pickup[i].type].color.r, pickup.types[pickup[i].type].color.g, pickup.types[pickup[i].type].color.b)
@@ -125,19 +137,20 @@ function pickup.draw(i)
 end
 
 
-
 function pickup.updateAll()
 	i = 1
-	while i <= table.getn(pickup) do
+	while i <= pickup do
 		pickup.update(i)
 		i = i + 1
 	end
 	pickup.collideall()
 end
 
+
 function pickup.update(i)
 	pickup.checkplayer(i)
 end
+
 
 function pickup.checkplayer(i)
 
@@ -155,11 +168,11 @@ function pickup.checkplayer(i)
 			pickup[i].y = pickup[i].y - pickup.magnetspeed * game.dt
 		end
 	end
-
 	if util.collides(pickup[i].x, pickup[i].y, pickup[i].width, pickup[i].height, player.x, player.y, player.width, player.height) then
 		pickup.types[pickup[i].type].func(i, pickup[i].value)
 	end
 end
+
 
 function pickup.center(i)
 	return pickup[i].x + pickup[i].width/2, pickup[i].y + pickup[i].height/2
@@ -168,19 +181,18 @@ end
 --iterate through each pickup and block and check for collisions
 function pickup.collideall()
 	pi = 1	--pickup index
-	while pi <= table.getn(pickup) do
+	while pi <= pickup do
 		bi = 1	--block index
-		while bi <= table.getn(block) do
+		while bi <= block do
 			pickup.collideblock(pi, bi)
 			bi = bi + 1
 		end
 		pi = pi + 1
 	end
-
 	pi = 1	--pickup index
-	while pi <= table.getn(pickup) do
+	while pi <= pickup do
 		bi = 1	--block index
-		while bi <= table.getn(pickup) do
+		while bi <= pickup do
 			if bi ~= pi then
 				pickup.collidepickup(pi, bi)
 			end
@@ -188,7 +200,6 @@ function pickup.collideall()
 		end
 		pi = pi + 1
 	end
-
 end
 
 --check for a collision between an pickup and a block, and adjust so they no longer collide
@@ -211,7 +222,7 @@ function pickup.collideblock(pi, bi)
 				lowest = hi
 			end
 			hi = hi + 1
-		end 
+		end
 
 		--push player to the side of least intrusion
 		if 		lowest == 1 then
@@ -228,6 +239,7 @@ function pickup.collideblock(pi, bi)
 
 end
 
+
 function pickup.collidepickup(pi, bi)
 	values = {
 		pickup[pi].x + pickup[pi].width - pickup[bi].x,	--Left
@@ -235,7 +247,6 @@ function pickup.collidepickup(pi, bi)
 		pickup[pi].y + pickup[pi].height - pickup[bi].y,	--Top
 		pickup[bi].y + pickup[bi].height - pickup[pi].y	--Bottom
 	}
-
 	--collision check
 	if pickup[pi].x + pickup[pi].width > pickup[bi].x and pickup[pi].x < pickup[bi].x + pickup[bi].width and pickup[pi].y + pickup[pi].height > pickup[bi].y and pickup[pi].y < pickup[bi].y + pickup[bi].height then
 		lowest = 1		--side with least intrusion
@@ -246,8 +257,7 @@ function pickup.collidepickup(pi, bi)
 				lowest = hi
 			end
 			hi = hi + 1
-		end 
-
+		end
 		--push player to the side of least intrusion
 		if 		lowest == 1 then
 			pickup[pi].x = pickup[bi].x - pickup[pi].width
@@ -258,6 +268,5 @@ function pickup.collidepickup(pi, bi)
 		elseif 	lowest == 4 then
 			pickup[pi].y = pickup[bi].y + pickup[bi].height
 		end
-
 	end
 end

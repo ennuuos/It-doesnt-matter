@@ -1,5 +1,3 @@
---require("settings")
-
 block = {}
 
 block.types = {}
@@ -9,21 +7,19 @@ block.types['standard'].height = 20
 block.types['standard'].health = 1000
 block.types['standard'].color = {r = 20, g = 20, b = 20}
 block.types['standard'].matter = 100
+
 --block 'constructor'
 function block.new(x, y, type)
-	i = table.getn(block) + 1
-	block[i]  = {}
-	--rect stuff
-	block[i].type = type
-	block[i].x = x - block.types[block[i].type].width / 2
-	block[i].y = y - block.types[block[i].type].height / 2
-	block[i].width = block.types[block[i].type].width
-	block[i].height = block.types[block[i].type].height
-	
-	block[i].color = block.types[type].color
-	block[i].matter = block.types['standard'].matter
-
-	block[i].health = block.types[type].health
+	block[#block + 1] = {
+		type = type,
+		x = x - block.types[type].width / 2,
+		y = y - block.types[type].height / 2,
+		width = block.types[type].width,
+		height = block.types[type].height,
+		color = block.types[type].color,
+		matter = block.types['standard'].matter,
+		health = block.types[type].health,
+	}
 end
 
 --record any health damage and react appropriately
@@ -58,7 +54,7 @@ end
 
 --iterates and remove all blocks, without fancy destruction
 function block.clear()
-	while table.getn(block) > 0 do
+	while #block > 0 do
 		table.remove(block, i)
 	end
 end
@@ -74,14 +70,16 @@ function block.reset()
 	block.new(2 * settings.windowwidth / 3, settings.windowheight / 2, "standard")
 end
 
+
 function block.center(i)
 	return block[i].x + block[i].width/2, block[i].y + block[i].height/2
 end
 
+
 function block.drawAll()
 	--iterate through each block and call draw function for each
 	i = 1
-	while i <= table.getn(block) do
+	while i <= #block do
 		block.draw(i)
 		i = i + 1
 	end
