@@ -8,6 +8,12 @@ function game.init()
 	love.window.setMode(settings.windowwidth, settings.windowheight) -- We can change the window properties in the settings.
 	love.window.setTitle(settings.title) -- of course, we need a title
 	menu.button.new(settings.windowwidth/2 - 50,settings.windowheight/2-15,100,30,"Start Game", menu.commands.start)
+
+	--dropdown buttons
+	parent = menu.button.new(settings.windowwidth/2 - 50,settings.windowheight/2 + 20,100,30,"Dropdown", menu.commands.dropdown)	--parent button
+	menu.button.new(settings.windowwidth/2 - 50,settings.windowheight/2 + 90,100,30,"Element 2", menu.commands.start, parent)	--another child button
+	menu.button.new(settings.windowwidth/2 - 50,settings.windowheight/2 + 55,100,30,"Element 1", menu.commands.start, parent)	--child button
+
 	love.mouse.setVisible(false) -- Removes the mouse so we can see the cursor.
 	love.mouse.setGrabbed(true)
 	love.graphics.setBackgroundColor(30,30,30)
