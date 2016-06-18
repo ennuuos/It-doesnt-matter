@@ -13,7 +13,6 @@ require('menu')
 
 function love.load(arg) -- Load the level
 	game.init()
-
 end
 
 function love.update(dt)

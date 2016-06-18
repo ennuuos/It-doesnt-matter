@@ -34,6 +34,7 @@ projectile.types['rifle'].damage = 10000
 
 --create a new projectile
 function projectile.new(type, x, y, tx, ty, bIsPlayer)
+
 	i = table.getn(projectile) + 1
 	projectile[i] = {}
 	projectile[i].x = x
@@ -51,11 +52,18 @@ end
 
 --iterate through and call update function for each
 function projectile.updateAll(dt)
+	for i = 1, #projectile do
+		if projectile[i] then
+			projectile.update(i, dt)
+		end
+	end
+--[[
 	i = 1
 	while i <= table.getn(projectile) do
 		projectile.update(i, dt)
 		i = i + 1
 	end
+]]
 end
 function projectile.update(i, dt)
 	--move projectile
